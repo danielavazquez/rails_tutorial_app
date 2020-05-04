@@ -16,12 +16,10 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
-<<<<<<< HEAD
-=======
+
     # Logs out the current user.
   def log_out
     session.delete(:user_id)
     @current_user = nil
   end
->>>>>>> basic-login
 end
