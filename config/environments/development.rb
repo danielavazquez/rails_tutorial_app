@@ -61,4 +61,12 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   # Allow connections to local server.
   config.hosts.clear
+  
+  config.action_mailer.raise_delivery_errors = false
+
+  host = 'https://us-east-2.console.aws.amazon.com/cloud9/ide/3603da9734a24c53a8ae4c6f40feecad' # Don't use this literally; use your local dev host instead
+  # Use this on the cloud IDE.
+  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+  # Use this if developing on localhost.
+  # config.action_mailer.default_url_options = { host: host, protocol: 'http' }
 end
