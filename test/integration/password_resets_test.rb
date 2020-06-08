@@ -12,7 +12,7 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
     assert_template 'password_resets/new'
     assert_select 'input[name=?]', 'password_reset[email]'
     # Invalid email
-    post password_resets_path, password_reset: { email: @user.email } #Compatible rails 5 syntax
+    post password_resets_path, params: { password_reset: { email: "" } }
     assert_not flash.empty?
     assert_template 'password_resets/new'
     # Valid email
@@ -37,7 +37,7 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
     # Right email, right token
     get edit_password_reset_path(user.reset_token, email: user.email)
-    assert_template 'password_resets/edit'
+    assert_template 'password_resets/edit'                               #Error Here
     assert_select "input[name=email][type=hidden][value=?]", user.email
     # Invalid password & confirmation
     patch password_reset_path(user.reset_token),
@@ -59,5 +59,22 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
     assert is_logged_in?
     assert_not flash.empty?
     assert_redirected_to user
+    assert_nil user.reload.reset_digest
+  end
+  
+  test "expired token" do
+    get new_password_reset_path
+    post password_resets_path,
+         params: { password_reset: { email: @user.email } }
+
+    @user = assigns(:user)
+    @user.update_attribute(:reset_sent_at, 3.hours.ago)
+    patch password_reset_path(@user.reset_token),
+          params: { email: @user.email,
+                    user: { password:              "foobar",
+                            password_confirmation: "foobar" } }
+    assert_response :redirect
+    follow_redirect!
+    assert_match /expired/i, response.body
   end
 end

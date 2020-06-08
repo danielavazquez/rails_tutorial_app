@@ -1,8 +1,8 @@
 class PasswordResetsController < ApplicationController
-  before_action :get_user,         only: [:edit, :update]
-  before_action :valid_user,       only: [:edit, :update]
+  before_action :get_user,   only: [:edit, :update]
+  before_action :valid_user, only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]    # Case (1)
-
+  
   def new
   end
 
@@ -21,7 +21,7 @@ class PasswordResetsController < ApplicationController
 
   def edit
   end
-
+  
   def update
     if params[:user][:password].empty?
       @user.errors.add(:password, "can't be empty")
@@ -35,7 +35,7 @@ class PasswordResetsController < ApplicationController
       render 'edit'
     end
   end
-
+  
   private
 
     def user_params
