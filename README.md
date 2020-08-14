@@ -38,5 +38,7 @@ If the test suite passes, you'll be ready to run the app in a local server:
 $ rails server
 ```
 
+To take a tour of the app, login using example@railstutorial.org, password foobar.
+
 For more information, see the
 [*Ruby on Rails Tutorial* book](https://www.railstutorial.org/book).
