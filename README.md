@@ -44,5 +44,5 @@ For more information, see the
 [*Ruby on Rails Tutorial* book](https://www.railstutorial.org/book).
 
 Sample User:
-email:example@railstutorial.org
-password: foobar
+email:example@railstutorial.org  
+password: foobar  
