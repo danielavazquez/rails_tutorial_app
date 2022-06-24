@@ -42,3 +42,7 @@ To take a tour of the app, login using example@railstutorial.org, password fooba
 
 For more information, see the
 [*Ruby on Rails Tutorial* book](https://www.railstutorial.org/book).
+
+Sample User:
+email:example@railstutorial.org
+password: foobar
